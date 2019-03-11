@@ -10,11 +10,20 @@ default: &default
   timeout: 5000
 
 development:
-  <<: *default
-  database: owl_dev
-  host: localhost
-  username: projectowl
-  password: ProjectOwl12345!
+  # <<: *default
+  # database: owl_dev
+  # host: localhost
+  # username: projectowl
+  # password: ProjectOwl12345!
+  adapter: postgresql
+  database: <%= ENV['PG_DB'] %>
+  host: <%= ENV['PG_HOST'] %>
+  port: <%= ENV['PG_PORT'] %>
+  username: <%= ENV['PG_USER'] %>
+  password: <%= ENV['PG_PASSWD'] %>
+  sslmode: require
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
